@@ -1,0 +1,24 @@
+{% extends "pages/base.html" %}
+
+{% block title %} UPDATE JOB {% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data"> 
+    {% csrf_token %}
+    {{form.media}}
+    {{ form.as_p }}
+    <button class="btn btn-primary mb-2">Post</button>
+</form>
+
+<script>
+    var name = "{{user.id}}";
+    document.getElementById("elder").value = name;
+</script> 
+
+{% endblock %}
+
+{% block linhvuc%}
+{% for catalogy in theloai %}
+<li><a href="{% url 'category' post.pk %}">{{catalogy.nameCatalog}}</a></li>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "pages/base.html" %}
+{%block title%} Home {%endblock%}
+
+{% block content %}
+{% if search %}
+{% for post in post %}
+<div class="col_1">
+    <div class="col-sm-4 row_2">
+        {% if post.image %}
+        <a href="{% url 'post_details' post.pk %}"><img src="{{post.image.url}}" class="img-responsive" alt="" /></a>
+        {% endif %}
+    </div>
+    <div class="col-sm-8 row_1">
+        <h4><a href="{% url 'post_details' post.pk %}">{{ post.nameJob }} </a></h4>
+        <h6>TP, Ho Chi Minh <span class="dot">·</span> {{post.date}}</h6>
+        <p>Tên công ty: <a href="{% url 'jobview' post.nhatuyen.id|slugify %}">{{post.nhatuyen.first_name}}</a></p>
+        <p>Mức lương: {{post.salary}}</p>
+        <p>Loại công việc: {{post.catalogy.nameCatalog}}</p>
+        <div class="social">
+            <a class="btn_1" href="#">
+                <i class="fa fa-facebook"></i>
+                <span class="share1">Share</span>
+            </a>
+            <a class="btn_1" href="#">
+                <i class="fa fa-twitter tw"></i>
+                <span class="share1">Tweet</span>
+            </a>
+            <a class="btn_1" href="#">
+                <i class="fa fa-google-plus google"></i>
+                <span class="share1 google">Share</span>
+            </a>
+
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+{% endfor %}
+
+{% else %}
+
+{% endif %}
+{% endblock %}
+
+{% block linhvuc %}
+{% for cate in catalogy %}
+<li><a href="{% url 'category' cate.id %}">{{cate.nameCatalog}}</a></li>
+{% endfor %}
+{% endblock %}

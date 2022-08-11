@@ -1,0 +1,21 @@
+{% extends "pages/base.html" %}
+{% block title %} Manage Post CV {% endblock %}
+
+{% block content %}
+{% if cv_post %}
+{% for cv in cv_post %}
+<div class="col_1">
+    <div class="col-sm-8 row_1">
+        Tên công việc:
+        <h4><a href="{% url 'post_details' cv.post_id.id %}">{{ cv.post_id.nameJob }} </a></h4>
+        Họ và tên: <p>{{cv.name}}</p>
+        Địa chỉ email: <p>{{cv.email}}</p>
+        {% if cv.cv_file %}
+        <a href="{{cv.cv_file.url}}">Xem CV</a>
+        {% endif %}
+    </div>
+    <div class="clearfix"> </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

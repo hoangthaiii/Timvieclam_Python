@@ -1,0 +1,26 @@
+{% extends "pages/base.html" %}
+
+{% block title %} ADD NEW JOB {% endblock %}
+
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data"> 
+    {% csrf_token %}
+    {{form.media}}
+    {{ form.as_p }}
+    <button class="btn btn-primary mb-2">Nộp hồ sơ</button>
+</form>
+
+<script>
+    var name = "{{user.id}}";
+    document.getElementById("elder").value = name;
+</script>
+
+<script>
+    var url = window.location.href;
+    url = url.slice(23)
+    var post_id = url.match(/\d/g);
+    post_id = post_id.join("");
+    document.getElementById("post_name").value = post_id;
+</script>
+{% endblock %}

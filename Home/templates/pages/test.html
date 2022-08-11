@@ -1,0 +1,108 @@
+{% extends "pages/base.html" %}
+
+{% block title %} {{post.nameJob}} {% endblock %}
+
+{% block content %}
+
+<h3>Tên công việc: {{post.nameJob}}</h3>
+<div class="row_1">
+    <div class="col-sm-5 single_img">
+        {% if post.image %}
+        <img src="{{post.image.url}}" class="img-responsive" alt="" />/
+        {% endif %}
+    </div>
+    <div class="col-sm-7 single-para">
+        <p>Tên công ty: <a href="{% url 'jobview' post.nhatuyen.id|slugify %}">{{post.nhatuyen.first_name}}</a></p>
+        <p>Loại công việc: {{post.catalogy}}</p>
+        <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+<h4>Mô tả công việc: </h4>
+<!-- <<p class="lowercaseText">{{post.motacv}}</p> -->
+<div class="lowercaseText">{{post.motacv|safe|linebreaks}}</div>
+<br>
+<h4>Yêu cầu công việc: </h4>
+<p>{{post.yeucaucv|safe|linebreaks}}</p>
+<br>
+<h4>Phúc lợi</h4>
+<p>{{post.phucloi|safe|linebreaks}}</p>
+<br>
+<h4>Lương</h4>
+<p>{{post.salary}}</p>
+<br>
+<div class="row_1">
+    <div class="col-sm-2 single_img">
+        <p>Địa chỉ làm việc: </p>
+    </div>
+    <div class="col-sm-3 single-para">
+        <p>{{post.diachi}}</p>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+<form action=" {% if user.is_authenticated %}
+    {% url 'care_view' post.id %}
+    {% else %}
+    
+    {% url 'home'  %}
+    {% endif %}" method="POST">
+    {% csrf_token %}
+    <button class="btn_btn" type="submit" name="post_id" value="{{post.id}}" id="myBtn"><i class="fa fa-heart"></i> {{ total_care }}
+    Yêu thích</button>
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Thông báo</h2>
+          </div>
+          <div class="modal-body">
+            <p>Bạn chưa đăng nhập</p>
+            <p>Click here to Login</p>
+          </div>
+        </div>  
+    </div>
+    {% if user.first_name == "" %}
+    <a href="{% url 'upload_cv' post.id %}">Nộp hồ sơ</a>
+    {% endif %}
+</form>
+<hr>
+<br />
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    
+    var test;
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks the button, open the modal 
+    modal.style.display = "block";
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+
+
+{% endblock %}
+
+{% block linhvuc %}
+{% for cate in theloai %}
+<li><a href="{% url 'category' cate.id %}">{{cate.nameCatalog}}</a></li>
+{% endfor %}
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{% extends "pages/base.html" %}
+{% block title %} Cong viec cua cong ty {% endblock %}
+
+{% block content %}
+{% if jobs_company %}
+{% for post in jobs_company %}
+<div class="col_1">
+    <div class="col-sm-4 row_2">
+        {% if post.image %}
+        <a href="single.html"><img src="{{post.image.url}}" class="img-responsive" alt="" /></a>
+        {% endif %}
+    </div>
+    <div class="col-sm-8 row_1">
+        <h4><a href="{% url 'post_details' post.pk %}">{{ post.nameJob }} </a></h4>
+        <h6>TP, Ho Chi Minh <span class="dot">·</span> {{post.date}}</h6>
+        <p>Công ty: <a href="{% url 'jobview' post.nhatuyen.id|slugify %}">{{post.nhatuyen.first_name}}</a> </p>
+        <p>Mức lương: {{post.salary}}</p>
+        
+    </div>
+    <div class="clearfix"> </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+

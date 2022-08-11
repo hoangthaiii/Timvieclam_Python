@@ -1,0 +1,34 @@
+{% extends "pages/base.html" %}
+{%block title%} Home {%endblock%}
+
+{% block content %}
+{% for post in object_list %}
+<div class="col_1">
+    <div class="col-sm-4 row_2">
+        <a href="single.html"><img src="images/a1.jpg" class="img-responsive" alt="" /></a>
+    </div>
+    <div class="col-sm-8 row_1">
+        <h4><a href="{% url 'post_details' post.pk %}">{{ post.nameJob }} </a></h4>
+        <h6>TP, Ho Chi Minh <span class="dot">·</span> {{post.date}}</h6>
+        <p>Người đăng: {{post.nhatuyen.first_name}}</p>
+        <p>Mức lương: {{post.salary}}</p>
+        <div class="social">
+            <a class="btn_1" href="#">
+                <i class="fa fa-facebook fb"></i>
+                <span class="share1 fb">Share</span>
+            </a>
+            <a class="btn_1" href="#">
+                <i class="fa fa-twitter tw"></i>
+                <span class="share1">Tweet</span>
+            </a>
+            <a class="btn_1" href="#">
+                <i class="fa fa-google-plus google"></i>
+                <span class="share1 google">Share</span>
+            </a>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+{% endfor %}
+{% endblock %}
+

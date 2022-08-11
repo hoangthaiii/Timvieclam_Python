@@ -1,0 +1,34 @@
+{% extends "pages/base.html" %}
+{% block title %} Manage Your CV {% endblock %}
+
+{% block content %}
+{% for cv in object_list %}
+{% if user.id == cv.user_id.id %}
+<div class="col_1">
+    <div class="col-sm-8 row_1">
+        Tên công việc:
+        <h4><a href="{% url 'post_details' cv.post_id.id %}">{{ cv.post_id.nameJob }} </a></h4>
+        Họ và tên: <p>{{cv.name}}</p>
+        Địa chỉ email: <p>{{cv.email}}</p>
+        {% if cv.cv_file %}
+        <a href="{{cv.cv_file.url}}">Xem CV</a>
+        {% endif %}
+    </div>
+    <div class="clearfix"> </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}
+
+{% block linhvuc %}
+{% for catalogy in theloai %}
+<li><a href="{% url 'category' catalogy.id %}">{{catalogy.nameCatalog}}</a></li>
+{% endfor %}
+{% endblock %}
+
+
+{% block tuyendung %}
+{% for post in post %}
+<li><a href="{% url 'post_details' post.pk %}">{{post.nameJob}} </a></li>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "pages/base.html" %}
+{% block title %} Manage Your Job {% endblock %}
+
+{% block content %}
+{% for post in object_list %}
+{% if user.id == post.nhatuyen.id %}
+<div class="col_1">
+    <div class="col-sm-4 row_2">
+        {% if post.image %}
+        <a href="single.html"><img src="{{post.image.url}}" class="img-responsive" alt="" /></a>
+        {% endif %}
+    </div>
+    <div class="col-sm-8 row_1">
+        <h4><a href="{% url 'post_details' post.pk %}">{{ post.nameJob }} </a></h4>
+        <h6>TP, Ho Chi Minh <span class="dot">·</span> {{post.date}}</h6>
+        <p>Người đăng: <a href="{% url 'jobview' post.nhatuyen.id|slugify %}">{{post.nhatuyen.first_name}}</a></p>
+        
+        <p>Mức lương: {{post.salary}}</p>
+        <div class="social">
+            <a href="{% url 'update_post' post.pk %}">Chỉnh sửa</a> |
+            <a href="{% url 'delete_post' post.pk %}">Xóa bài viết</a> |
+            <a href="{% url 'cv_post' post.pk %}">Xem CV hiện có</a>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}
+
+
+
+{% block linhvuc %}
+{% for catalogy in theloai %}
+<li><a href="{% url 'category' catalogy.id %}">{{catalogy.nameCatalog}}</a></li>
+{% endfor %}
+{% endblock %}
